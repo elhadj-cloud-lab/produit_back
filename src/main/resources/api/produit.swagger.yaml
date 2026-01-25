@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: API Produit
+  description: API pour la gestion des produits
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Serveur local
+
+paths:
+  /produits:
+    get:
+      tags:
+        - Produit
+      summary: Liste tous les produits
+      operationId: getAllProduits
+      responses:
+        '200':
+          description: Liste des produits
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produit'
+        '204':
+
+
+components:
+  schemas:
+    Produit:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nom:
+          type: string
+        description:
+          type: string
+        prix:
+          type: number
+          format: double

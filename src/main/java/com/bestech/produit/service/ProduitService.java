@@ -2,7 +2,6 @@ package com.bestech.produit.service;
 
 import com.bestech.produit.model.Categorie;
 import com.bestech.produit.model.Produit;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
