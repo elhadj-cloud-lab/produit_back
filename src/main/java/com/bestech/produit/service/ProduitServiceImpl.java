@@ -3,10 +3,10 @@ package com.bestech.produit.service;
 import com.bestech.produit.model.Categorie;
 import com.bestech.produit.model.Produit;
 import com.bestech.produit.repository.ProduitRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 class ProduitServiceImpl implements ProduitService {
@@ -29,8 +29,17 @@ class ProduitServiceImpl implements ProduitService {
     }
 
     @Override
-    public Produit updateProduit(Produit p) {
-        return produitRepository.save(p);
+    public Produit updateProduit(Long id, Produit p) {
+
+        return produitRepository.findById(id)
+                .map(existingProduit -> {
+                    existingProduit.setNomProduit(p.getNomProduit());
+                    existingProduit.setPrixProduit(p.getPrixProduit());
+                    existingProduit.setDateCreation(p.getDateCreation());
+                    existingProduit.setCategorie(p.getCategorie());
+                    return produitRepository.save(existingProduit);
+                })
+                .orElseThrow(() -> new NoSuchElementException("Le produit avec l'id " + id + " non trouvé."));
     }
 
     @Override
