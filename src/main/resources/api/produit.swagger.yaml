@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:8080/api
 
 tags:
-  - name: Produits
+  - name: Produit
     description: Gestion des produits
 
 paths:
@@ -176,7 +176,7 @@ paths:
 
   /produit/search/by-nom-prix:
     get:
-      tags: [ Produits ]
+      tags: [ Produit ]
       summary: Rechercher par nom et prix
       operationId: findByNomPrixProduit
       parameters:
@@ -207,7 +207,7 @@ paths:
 
   /produit/search/by-categorie-id:
     get:
-      tags: [ Produits ]
+      tags: [ Produit ]
       summary: Rechercher des produits par catégorie (ID)
       operationId: findByCategorieIdCategorie
       parameters:
@@ -233,7 +233,7 @@ paths:
 
   /produit/sort/by-nom:
     get:
-      tags: [ Produits ]
+      tags: [ Produit ]
       summary: Trier les produits par nom (ASC)
       operationId: findByOrderByNomProduitAsc
       responses:
@@ -250,7 +250,7 @@ paths:
 
   /produit/sort/by-nom-prix:
     get:
-      tags: [ Produits ]
+      tags: [ Produit ]
       summary: Trier les produits par nom et prix
       operationId: trierProduitsNomsPrix
       responses:

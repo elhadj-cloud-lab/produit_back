@@ -1,7 +1,7 @@
 package com.bestech.produit.controller;
 
 import __package.projet_.bean.ProduitDTO;
-import __package.projet_.controller.ProduitsApi;
+import __package.projet_.controller.ProduitApi;
 import com.bestech.produit.bean.ProduitBeanMapper;
 import com.bestech.produit.model.Produit;
 import com.bestech.produit.service.ProduitService;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api")
 @CrossOrigin
 @AllArgsConstructor
-public class ProduitController implements ProduitsApi {
+public class ProduitController implements ProduitApi {
 
     private final ProduitService produitService;
     private final ProduitBeanMapper produitBeanMapper;
