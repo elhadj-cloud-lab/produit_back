@@ -34,27 +34,32 @@ public class ProduitController implements ProduitApi {
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByCategorieIdCategorie(Long idCategorie) {
-        return null;
+        List<Produit> produits = produitService.findByCategorieIdCategorie(idCategorie);
+        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByNomPrixProduit(String nom, Double prix) {
-        return null;
+        List<Produit> produits = produitService.findByNomPrixProduit(nom, prix);
+        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByNomProduit(String nom) {
-        return null;
+        List<Produit> produits = produitService.findByNomProduit(nom);
+        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByNomProduitContains(String nom) {
-        return null;
+        List<Produit> produits = produitService.findByNomProduitContains(nom);
+        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByOrderByNomProduitAsc() {
-        return null;
+        List<Produit> produits = produitService.findByOrderByNomProduitAsc();
+        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
     }
 
     @Override
