@@ -104,6 +104,36 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
+    patch:
+      tags: [ Produit ]
+      summary: Mettre à jour un champ du produit
+      operationId: updateChampProduit
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProduitDTO'
+      responses:
+        '200':
+          description: Produit mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProduitDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
     delete:
       tags: [ Produit ]
@@ -178,7 +208,7 @@ paths:
     get:
       tags: [ Produit ]
       summary: Rechercher par nom et prix
-      operationId: findByNomPrixProduit
+      operationId: findByNomProduitContainingAndPrixProduitGreaterThan
       parameters:
         - name: nom
           in: query

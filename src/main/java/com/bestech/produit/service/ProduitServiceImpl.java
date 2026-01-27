@@ -68,8 +68,8 @@ class ProduitServiceImpl implements ProduitService {
     }
 
     @Override
-    public List<Produit> findByNomPrixProduit(String nomPrixProduit, Double prixProduit) {
-        return produitRepository.findByNomPrixProduit(nomPrixProduit, prixProduit);
+    public List<Produit> findByNomProduitContainingAndPrixProduitGreaterThan(String nom, Double prix) {
+        return produitRepository.findByNomProduitContainingAndPrixProduitGreaterThan(nom, prix);
     }
 
     @Override

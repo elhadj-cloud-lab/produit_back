@@ -17,7 +17,7 @@ public interface ProduitService {
 
     List<Produit> findByNomProduit(String nomProduit);
     List<Produit> findByNomProduitContains(String nomProduit);
-    List<Produit> findByNomPrixProduit(@Param("nom") String nomPrixProduit, @Param("prix") Double prixProduit);
+    List<Produit> findByNomProduitContainingAndPrixProduitGreaterThan(@Param("nom") String nom, @Param("prix") Double prix);
     List<Produit> findByCategorie(Categorie categorie);
     List<Produit> findByCategorieIdCategorie(Long idCat);
     List<Produit> findByOrderByNomProduitAsc();

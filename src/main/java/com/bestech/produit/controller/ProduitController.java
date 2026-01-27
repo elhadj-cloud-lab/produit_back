@@ -39,8 +39,8 @@ public class ProduitController implements ProduitApi {
     }
 
     @Override
-    public ResponseEntity<List<ProduitDTO>> findByNomPrixProduit(String nom, Double prix) {
-        List<Produit> produits = produitService.findByNomPrixProduit(nom, prix);
+    public ResponseEntity<List<ProduitDTO>> findByNomProduitContainingAndPrixProduitGreaterThan(String nom, Double prix) {
+        List<Produit> produits = produitService.findByNomProduitContainingAndPrixProduitGreaterThan(nom, prix);
         return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
     }
 
@@ -79,6 +79,12 @@ public class ProduitController implements ProduitApi {
     public ResponseEntity<List<ProduitDTO>> trierProduitsNomsPrix() {
         List<Produit> produits = produitService.trierProduitsNomsPrix();
         return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+    }
+
+    @Override
+    public ResponseEntity<ProduitDTO> updateChampProduit(Long id, ProduitDTO produitDTO) {
+        produitService.updateProduit(id, produitBeanMapper.toEntity(produitDTO));
+        return ResponseEntity.ok(produitDTO);
     }
 
     @Override
