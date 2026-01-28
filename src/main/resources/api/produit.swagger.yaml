@@ -11,7 +11,7 @@ tags:
     description: Gestion des produits
 
 paths:
-  /produit/:
+  /produit:
     get:
       tags: [ Produit ]
       summary: Lister tous les produits
@@ -25,6 +25,24 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProduitDTO'
+        '201':
+          description: Produit créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProduitDTO'
+        '400':
+           description: Données de requête invalides
+           content:
+             application/json:
+               schema:
+                 $ref: '#/components/schemas/ErrorResponse'
+        '409':
+           description: Un utilisateur avec cet email existe déjà
+           content:
+             application/json:
+               schema:
+                 $ref: '#/components/schemas/ErrorResponse'
         '500':
           $ref: '#/components/responses/InternalServerError'
 
@@ -331,17 +349,19 @@ components:
     ErrorResponse:
       type: object
       properties:
+        code:
+          type: string
+          description: Code d'erreur
+          example: "USER_NOT_FOUND"
+        message:
+          type: string
+          description: Message d'erreur lisible
+          example: "Le produit avec l'ID 123 n'existe pas"
         timestamp:
           type: string
           format: date-time
-        status:
-          type: integer
-        error:
-          type: string
-        message:
-          type: string
-        path:
-          type: string
+          description: Horodatage de l'erreur
+          example: "2024-01-15T10:30:00Z"
 
   responses:
     BadRequest:
@@ -364,18 +384,3 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-
-#components:
-#  schemas:
-#    ProduitDTO:
-#      type: object
-#      properties:
-#        idProduit:
-#          type: long
-#        nomProduit:
-#          type: string
-#        prixProduit:
-#          type: number
-#          format: double
-#        categorieId:
-#          type: long

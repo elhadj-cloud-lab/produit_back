@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.10-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.bestech</groupId>
 	<artifactId>produit</artifactId>
@@ -123,7 +123,6 @@
                     <generateApiTests>false</generateApiTests>
                     <generateSupportingFiles>true</generateSupportingFiles>
                     <generateAliasAsModel>false</generateAliasAsModel>
-                    <modelNameSuffix></modelNameSuffix>
                     <typeMappings>
                         <typeMapping>string+binary=InputStream</typeMapping>
                         <typeMapping>string+date-time=ZonedDateTime</typeMapping>
@@ -162,8 +161,8 @@
                             <inputSpec>
                                 ${project.basedir}/src/main/resources/api/produit.swagger.yaml
                             </inputSpec>
-                            <apiPackage>${package.projet}.controller</apiPackage>
-                            <modelPackage>${package.projet}.bean</modelPackage>
+                            <apiPackage>${project.groupId}.controller</apiPackage>
+                            <modelPackage>${project.groupId}.bean</modelPackage>
                             <generatorName>spring</generatorName>
                             <typeMappings>
                                 <typeMapping>Date=java.time.LocalDate</typeMapping>

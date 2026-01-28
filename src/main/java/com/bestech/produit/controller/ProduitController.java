@@ -1,7 +1,7 @@
 package com.bestech.produit.controller;
 
-import __package.projet_.bean.ProduitDTO;
-import __package.projet_.controller.ProduitApi;
+import com.bestech.bean.ProduitDTO;
+import com.bestech.controller.ProduitApi;
 import com.bestech.produit.bean.ProduitBeanMapper;
 import com.bestech.produit.model.Produit;
 import com.bestech.produit.service.ProduitService;

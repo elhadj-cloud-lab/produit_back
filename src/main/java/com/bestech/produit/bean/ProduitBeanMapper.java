@@ -1,6 +1,6 @@
 package com.bestech.produit.bean;
 
-import __package.projet_.bean.ProduitDTO;
+import com.bestech.bean.ProduitDTO;
 import com.bestech.produit.model.Produit;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
