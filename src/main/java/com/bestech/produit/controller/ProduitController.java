@@ -22,7 +22,7 @@ public class ProduitController implements ProduitApi {
 
     @Override
     public ResponseEntity<ProduitDTO> createProduit(ProduitDTO produitDTO) {
-        produitService.saveProduit(produitBeanMapper.toEntity(produitDTO));
+        produitService.saveProduit(produitBeanMapper.toProduitEntity(produitDTO));
         return ResponseEntity.ok(produitDTO);
     }
 
@@ -35,61 +35,61 @@ public class ProduitController implements ProduitApi {
     @Override
     public ResponseEntity<List<ProduitDTO>> findByCategorieIdCategorie(Long idCategorie) {
         List<Produit> produits = produitService.findByCategorieIdCategorie(idCategorie);
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByNomProduitContainingAndPrixProduitGreaterThan(String nom, Double prix) {
         List<Produit> produits = produitService.findByNomProduitContainingAndPrixProduitGreaterThan(nom, prix);
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByNomProduit(String nom) {
         List<Produit> produits = produitService.findByNomProduit(nom);
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByNomProduitContains(String nom) {
         List<Produit> produits = produitService.findByNomProduitContains(nom);
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> findByOrderByNomProduitAsc() {
         List<Produit> produits = produitService.findByOrderByNomProduitAsc();
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produits));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> getAllProduits() {
 
         List<Produit> produits = produitService.getAllProduits();
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produits));
     }
 
     @Override
     public ResponseEntity<ProduitDTO> getProduitById(Long id) {
         Produit produit = produitService.getProduitById(id);
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produit));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produit));
     }
 
     @Override
     public ResponseEntity<List<ProduitDTO>> trierProduitsNomsPrix() {
         List<Produit> produits = produitService.trierProduitsNomsPrix();
-        return ResponseEntity.ok(produitBeanMapper.toDTO(produits));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(produits));
     }
 
     @Override
     public ResponseEntity<ProduitDTO> updateChampProduit(Long id, ProduitDTO produitDTO) {
-        produitService.updateProduit(id, produitBeanMapper.toEntity(produitDTO));
+        produitService.updateProduit(id, produitBeanMapper.toProduitEntity(produitDTO));
         return ResponseEntity.ok(produitDTO);
     }
 
     @Override
     public ResponseEntity<ProduitDTO> updateProduit(Long id, ProduitDTO produitDTO) {
-        produitService.updateProduit(id, produitBeanMapper.toEntity(produitDTO));
+        produitService.updateProduit(id, produitBeanMapper.toProduitEntity(produitDTO));
         return ResponseEntity.ok(produitDTO);
     }
 

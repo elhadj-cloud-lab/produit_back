@@ -180,6 +180,37 @@
                             </configOptions>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>Génération API CATEGORIE</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <output>
+                                ${project.build.directory}/generated-sources/openapi/apiexposee
+                            </output>
+                            <inputSpec>
+                                ${project.basedir}/src/main/resources/api/categorie.swagger.yaml
+                            </inputSpec>
+                            <apiPackage>${project.groupId}.controller</apiPackage>
+                            <modelPackage>${project.groupId}.bean</modelPackage>
+                            <generatorName>spring</generatorName>
+                            <typeMappings>
+                                <typeMapping>Date=java.time.LocalDate</typeMapping>
+                                <typeMapping>DateTime=java.util.Date</typeMapping>
+                            </typeMappings>
+                            <configOptions>
+                                <library>spring-boot</library>
+                                <useOptional>true</useOptional>
+                                <useTags>true</useTags>
+                                <additionalModelTypeAnnotations>@lombok.NoArgsConstructor
+                                    @lombok.AllArgsConstructor</additionalModelTypeAnnotations>
+                                <useBeanValidation>true</useBeanValidation>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <performBeanValidation>true</performBeanValidation>
+                            </configOptions>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
