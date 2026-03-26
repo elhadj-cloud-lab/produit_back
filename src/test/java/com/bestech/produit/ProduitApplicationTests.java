@@ -85,8 +85,8 @@ class ProduitApplicationTests {
     }
 
     @Test
-    public void testFindByNomPrixProduit() {
-        List<Produit> produits = produitRepository.findByNomPrixProduit("Iphone 13",100.0);
+    public void testFindByNomProduitContainingAndPrixProduitGreaterThan() {
+        List<Produit> produits = produitRepository.findByNomProduitContainingAndPrixProduitGreaterThan("Iphone 13",100.0);
         afficherListeProduit(produits);
     }
 

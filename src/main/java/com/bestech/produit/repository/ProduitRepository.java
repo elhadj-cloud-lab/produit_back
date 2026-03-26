@@ -13,8 +13,8 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
     List<Produit> findByNomProduit(String nomProduit);
     List<Produit> findByNomProduitContains(String nomProduit);
 
-    @Query("select p from Produit p where p.nomProduit like %:nom and p.prixProduit > :prix")
-    List<Produit> findByNomPrixProduit(@Param("nom") String nomPrixProduit, @Param("prix") Double prixProduit);
+    @Query("select p from Produit p where p.nomProduit like concat('%', :nom, '%') and p.prixProduit > :prix")
+    List<Produit> findByNomProduitContainingAndPrixProduitGreaterThan(@Param("nom") String nom, @Param("prix") Double prix);
 
     @Query("select p from Produit p where p.categorie = ?1")
     List<Produit> findByCategorie(Categorie categorie);
