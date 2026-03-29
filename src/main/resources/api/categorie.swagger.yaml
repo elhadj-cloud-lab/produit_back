@@ -1,0 +1,226 @@
+openapi: 3.0.3
+info:
+  title: API Categorie
+  description: API REST pour la gestion des categories
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+
+tags:
+  - name: Categorie
+    description: Gestion des categories
+
+paths:
+  /categorie:
+    get:
+      tags: [ Categorie ]
+      summary: Lister toutes les categories
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: Liste des categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategorieDTO'
+        '201':
+          description: Categorie créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorieDTO'
+        '400':
+          description: Données de requête invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Une catégorie avec cet nom existe déjà
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      tags: [ Categorie ]
+      summary: Créer une categorie
+      operationId: createCategorie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorieDTO'
+      responses:
+        '201':
+          description: Categorie créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorieDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /categorie/{id}:
+    get:
+      tags: [ Categorie ]
+      summary: Récupérer une categorie par ID
+      operationId: getCategorieById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Categorie trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorieDTO'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    put:
+      tags: [ Categorie ]
+      summary: Mettre à jour une categorie
+      operationId: updateCategorie
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorieDTO'
+      responses:
+        '200':
+          description: Categorie mise à jour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorieDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      tags: [ Categorie ]
+      summary: Mettre à jour un champ d'une categorie
+      operationId: updateChampCategorie
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorieDTO'
+      responses:
+        '200':
+          description: Categorie mis à jour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorieDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      tags: [ Categorie ]
+      summary: Supprimer une categorie par ID
+      operationId: deleteCategorie
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Categorie supprimée
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    CategorieDTO:
+      type: object
+      properties:
+        idCategorie:
+          type: integer
+          format: int64
+          example: 10
+        nomCategorie:
+          type: string
+          example: Informatique
+        description:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code d'erreur
+          example: "USER_NOT_FOUND"
+        message:
+          type: string
+          description: Message d'erreur lisible
+          example: "La categorie avec l'ID 123 n'existe pas"
+        timestamp:
+          type: string
+          format: date-time
+          description: Horodatage de l'erreur
+          example: "2024-01-15T10:30:00Z"
+
+  responses:
+    BadRequest:
+      description: Requête invalide
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    NotFound:
+      description: Ressource non trouvée
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    InternalServerError:
+      description: Erreur interne du serveur
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
