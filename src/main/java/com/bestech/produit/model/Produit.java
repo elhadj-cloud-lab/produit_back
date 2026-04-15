@@ -24,6 +24,6 @@ public class Produit {
     @ManyToOne
     private Categorie categorie;
 
-    @OneToMany (mappedBy = "produit")
+    @OneToMany (mappedBy = "produit", cascade = CascadeType.REMOVE)
     private List<Image> images;
 }

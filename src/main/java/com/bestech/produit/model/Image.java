@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Builder
 @Data
@@ -25,6 +23,9 @@ public class Image {
     @Column( name = "IMAGE" , length = 4048576 )
     @Lob
     private byte[] image;
+
+//    @Column(name = "IMAGE", columnDefinition = "BYTEA")
+//    private byte[] image;
 
     @ManyToOne()
     @JoinColumn (name="PRODUIT_ID")

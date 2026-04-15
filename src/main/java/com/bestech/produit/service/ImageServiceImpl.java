@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +21,6 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     ImageRepository imageRepository;
 
-
     @Autowired
     ProduitService produitService;
 
@@ -29,12 +29,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image uplaodImage(MultipartFile file) throws IOException {
-        /*
-         * Ce code commenté est équivalent au code utilisant le design pattern Builder
-         * Image image = new Image(null, file.getOriginalFilename(),
-         * file.getContentType(), file.getBytes(), null);
-         *   return imageRepository.save(image);
-         */
         return imageRepository.save(Image.builder().name(file.getOriginalFilename()).type(file.getContentType())
                 .image(file.getBytes()).build());
     }
@@ -61,18 +55,20 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image uplaodImageProd(MultipartFile file,Long idProd)
             throws IOException {
-        Produit p = new Produit();
-        p.setIdProduit(idProd);
-        return imageRepository.save(Image.builder()
+        Produit produit = produitRepository.findById(idProd)
+                .orElseThrow(() -> new RuntimeException("Produit introuvable"));
+        Image image = Image.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .image(file.getBytes())
-                .produit(p).build() );
+                .produit(produit)
+                .build();
+        return imageRepository.save(image);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Image> getImagesParProd(Long prodId) {
-        Produit p = produitRepository.findById(prodId).get();
-        return p.getImages();
+        return imageRepository.findByProduitIdProduit(prodId);
     }
 }

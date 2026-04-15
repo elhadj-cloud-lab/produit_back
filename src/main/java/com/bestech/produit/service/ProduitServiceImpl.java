@@ -2,7 +2,9 @@ package com.bestech.produit.service;
 
 import com.bestech.produit.model.Categorie;
 import com.bestech.produit.model.Produit;
+import com.bestech.produit.repository.ImageRepository;
 import com.bestech.produit.repository.ProduitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ class ProduitServiceImpl implements ProduitService {
 
     private final ProduitRepository produitRepository;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
     private ProduitServiceImpl(ProduitRepository produitRepository) {
 
         this.produitRepository = produitRepository;
@@ -23,7 +28,6 @@ class ProduitServiceImpl implements ProduitService {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public Produit saveProduit(Produit p) {
-
         return produitRepository.save(p);
     }
 
@@ -52,7 +56,7 @@ class ProduitServiceImpl implements ProduitService {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteProduit(Long id) {
-
+        imageRepository.deleteByProduitIdProduit(id);
         produitRepository.deleteById(id);
     }
 

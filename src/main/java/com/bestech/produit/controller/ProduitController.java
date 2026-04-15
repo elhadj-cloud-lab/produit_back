@@ -22,8 +22,8 @@ public class ProduitController implements ProduitApi {
 
     @Override
     public ResponseEntity<ProduitDTO> createProduit(ProduitDTO produitDTO) {
-        produitService.saveProduit(produitBeanMapper.toProduitEntity(produitDTO));
-        return ResponseEntity.ok(produitDTO);
+        Produit savedProduit = produitService.saveProduit(produitBeanMapper.toProduitEntity(produitDTO));
+        return ResponseEntity.ok(produitBeanMapper.toProduitDTO(savedProduit));
     }
 
     @Override
@@ -92,6 +92,4 @@ public class ProduitController implements ProduitApi {
         produitService.updateProduit(id, produitBeanMapper.toProduitEntity(produitDTO));
         return ResponseEntity.ok(produitDTO);
     }
-
-
 }

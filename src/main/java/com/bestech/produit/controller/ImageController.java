@@ -2,7 +2,6 @@ package com.bestech.produit.controller;
 
 import com.bestech.produit.model.Image;
 import com.bestech.produit.service.ImageService;
-import com.bestech.produit.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
