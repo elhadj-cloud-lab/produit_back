@@ -15,7 +15,6 @@ public interface ProduitBeanMapper {
 
     ProduitDTO toProduitDTO(Produit produit);
 
-
     @Mapping(target = "categorie.produits", ignore = true)
     @Mapping(target = "images", ignore = true)
     Produit toProduitEntity(ProduitDTO dto);

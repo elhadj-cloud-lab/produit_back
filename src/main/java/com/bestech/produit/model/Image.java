@@ -20,12 +20,8 @@ public class Image {
     private String name ;
     private String type ;
 
-    @Column( name = "IMAGE" , length = 4048576 )
-    @Lob
+    @Column(name = "IMAGE", columnDefinition = "BYTEA")
     private byte[] image;
-
-//    @Column(name = "IMAGE", columnDefinition = "BYTEA")
-//    private byte[] image;
 
     @ManyToOne()
     @JoinColumn (name="PRODUIT_ID")
