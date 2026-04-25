@@ -1,3 +1,7 @@
+server:
+  port: 8081
+  error:
+    include-message: always
 spring:
   application:
     name: produit

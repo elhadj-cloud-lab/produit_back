@@ -14,13 +14,17 @@ import java.util.List;
 public interface ProduitBeanMapper {
 
     ProduitDTO toProduitDTO(Produit produit);
+
     @Mapping(target = "categorie.produits", ignore = true)
+    @Mapping(target = "images", ignore = true)
     Produit toProduitEntity(ProduitDTO dto);
 
     List<ProduitDTO> toProduitDTO(List<Produit> produits);
     List<Produit> toProduitEntity(List<ProduitDTO> produitDTOS);
 
     CategorieDTO toCategorieDTO(Categorie categorie);
+
+    @Mapping(target = "produits", ignore = true)
     Categorie toCategorieEntity(CategorieDTO dto);
 
     List<CategorieDTO> toCategorieDTO(List<Categorie> categorie);

@@ -2,15 +2,24 @@ package com.bestech.produit;
 import com.bestech.produit.model.Categorie;
 import com.bestech.produit.model.Produit;
 import com.bestech.produit.repository.ProduitRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
+@ActiveProfiles("test")
+@Transactional
 class ProduitApplicationTests {
+
+    @Test
+    void contextLoads() {
+        // Juste vérifier que le contexte Spring se charge
+    }
 
     @Autowired
     private ProduitRepository produitRepository;
@@ -125,4 +134,6 @@ class ProduitApplicationTests {
             System.out.println(p);
         }
     }
+
+
 }

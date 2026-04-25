@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,4 +23,7 @@ public class Produit {
 
     @ManyToOne
     private Categorie categorie;
+
+    @OneToMany (mappedBy = "produit", cascade = CascadeType.REMOVE)
+    private List<Image> images;
 }

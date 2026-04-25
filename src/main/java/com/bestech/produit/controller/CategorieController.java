@@ -54,6 +54,7 @@ public class CategorieController implements CategorieApi {
 
     @Override
     public ResponseEntity<CategorieDTO> updateChampCategorie(Long id, CategorieDTO categorieDTO) {
+
         return null;
     }
 }
