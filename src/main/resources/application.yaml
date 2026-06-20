@@ -2,9 +2,19 @@ server:
   port: 8081
   error:
     include-message: always
+
+jwt:
+  secret: ${JWT_SECRET:elhadjbs59@gmail.com}
+  expiration: ${JWT_ACCESS_EXPIRATION:900000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+
 spring:
   application:
     name: produit
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
   datasource:
     url: jdbc:postgresql://localhost:5432/produit
     driver-class-name: org.postgresql.Driver
