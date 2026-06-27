@@ -1,5 +1,6 @@
 package com.bestech.produit.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,22 +16,25 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JWTAuthorizationFilter jwtAuthorizationFilter;
+
     @Bean
-    public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
-        http.sessionManagement( session ->
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource( request -> {
-                    CorsConfiguration corsConfig  = new CorsConfiguration();
-                    corsConfig .setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-                    corsConfig .setAllowedMethods(Collections.singletonList("*"));
-                    corsConfig .setAllowedHeaders(Collections.singletonList("*"));
-                    corsConfig .setExposedHeaders(Collections.singletonList("Authorization"));
-                    return corsConfig ;
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration corsConfig = new CorsConfiguration();
+                    corsConfig.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                    corsConfig.setAllowedMethods(Collections.singletonList("*"));
+                    corsConfig.setAllowedHeaders(Collections.singletonList("*"));
+                    corsConfig.setExposedHeaders(Collections.singletonList("Authorization"));
+                    return corsConfig;
                 }))
-                .authorizeHttpRequests( auth -> auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
@@ -39,8 +43,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/produit/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/produit/**").hasRole("ADMIN")
                         .requestMatchers("/api/categorie/**").hasRole("ADMIN")
-                        .anyRequest().authenticated() )
-                .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

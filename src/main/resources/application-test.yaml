@@ -4,6 +4,10 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -13,3 +17,7 @@ spring:
   sql:
     init:
       mode: always
+
+jwt:
+  secret: test-secret
+  expiration: 900000
