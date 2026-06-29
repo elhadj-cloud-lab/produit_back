@@ -22,7 +22,7 @@ public class ImageController {
         return imageService.uplaodImage(file);
     }
 
-    @PostMapping(value = "/uplaodImageProd/{idProd}" )
+    @PostMapping(value = "/uploadImageProd/{idProd}" )
     public Image uploadMultiImages(@RequestParam("image") MultipartFile file,
                                    @PathVariable("idProd") Long idProd)
             throws IOException {

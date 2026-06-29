@@ -37,6 +37,21 @@ public class CategorieServiceImpl implements CategorieService {
     }
 
     @Override
+    public Categorie patchCategorie(Long id, Categorie partial) {
+        return categorieRepository.findById(id)
+                .map(existing -> {
+                    if (partial.getNomCategorie() != null) {
+                        existing.setNomCategorie(partial.getNomCategorie());
+                    }
+                    if (partial.getDescription() != null) {
+                        existing.setDescription(partial.getDescription());
+                    }
+                    return categorieRepository.save(existing);
+                })
+                .orElseThrow(() -> new NoSuchElementException("La categorie avec l'id " + id + " non trouvée."));
+    }
+
+    @Override
     public void deleteCategorie(Long id) {
         categorieRepository.deleteById(id);
     }
