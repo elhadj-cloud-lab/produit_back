@@ -4,7 +4,7 @@ server:
     include-message: always
 
 jwt:
-  secret: ${JWT_SECRET:elhadjbs59@gmail.com}
+  secret: ${JWT_SECRET}
   expiration: ${JWT_ACCESS_EXPIRATION:900000}
   refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 
@@ -16,7 +16,7 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
   datasource:
-    url: jdbc:postgresql://localhost:5432/produit
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/produit_db}
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres

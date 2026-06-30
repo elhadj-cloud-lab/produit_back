@@ -31,7 +31,7 @@ public class CategorieController implements CategorieApi {
     @Override
     public ResponseEntity<Void> deleteCategorie(Long id) {
         categorieService.deleteCategorie(id);
-        return null;
+        return ResponseEntity.noContent().build();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CategorieController implements CategorieApi {
 
     @Override
     public ResponseEntity<CategorieDTO> updateChampCategorie(Long id, CategorieDTO categorieDTO) {
-
-        return null;
+        Categorie patched = categorieService.patchCategorie(id, produitBeanMapper.toCategorieEntity(categorieDTO));
+        return ResponseEntity.ok(produitBeanMapper.toCategorieDTO(patched));
     }
 }
