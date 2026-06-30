@@ -29,6 +29,32 @@
 	<properties>
 		<java.version>21</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <jacoco.version>0.8.12</jacoco.version>
+
+        <!-- ── SonarCloud ──────────────────────────────────────────── -->
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <!-- SONAR_ORGANIZATION = variable GitHub Actions ou env local -->
+        <sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
+        <sonar.projectKey>produit-back</sonar.projectKey>
+        <sonar.projectName>Produit Back</sonar.projectName>
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${project.reporting.outputDirectory}/jacoco/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+        <!-- Exclus : entrypoint, entités, DTOs générés OpenAPI/MapStruct -->
+        <sonar.exclusions>
+            **/ProduitApplication.java,
+            **/model/**,
+            **/bean/**,
+            **/entity/**
+        </sonar.exclusions>
+        <sonar.coverage.exclusions>
+            **/ProduitApplication.java,
+            **/model/**,
+            **/bean/**,
+            **/entity/**
+        </sonar.coverage.exclusions>
+        <!-- SonarCloud free plan : quality gates custom = payant → reporting uniquement -->
+        <sonar.qualitygate.wait>false</sonar.qualitygate.wait>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -103,6 +129,55 @@
 
 	<build>
 		<plugins>
+		<!-- ── JaCoCo : mesure de couverture ──────────────────────────── -->
+		<plugin>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>${jacoco.version}</version>
+			<executions>
+				<execution>
+					<id>jacoco-prepare-agent</id>
+					<goals><goal>prepare-agent</goal></goals>
+				</execution>
+				<execution>
+					<id>jacoco-report</id>
+					<phase>verify</phase>
+					<goals><goal>report</goal></goals>
+				</execution>
+				<!--
+				  Seuil de couverture : monter progressivement vers 0.80
+				  Valeur actuelle : 0.00 → ne bloque pas le CI
+				  Prochaines étapes : 0.20 → 0.40 → 0.60 → 0.80
+				-->
+				<execution>
+					<id>jacoco-check</id>
+					<phase>verify</phase>
+					<goals><goal>check</goal></goals>
+					<configuration>
+						<rules>
+							<rule>
+								<element>BUNDLE</element>
+								<limits>
+									<limit>
+										<counter>INSTRUCTION</counter>
+										<value>COVEREDRATIO</value>
+										<minimum>0.00</minimum>
+									</limit>
+								</limits>
+							</rule>
+						</rules>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+
+		<!-- ── Sonar Maven Plugin ──────────────────────────────────── -->
+		<plugin>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>4.0.0.4121</version>
+		</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
