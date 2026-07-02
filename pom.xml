@@ -134,6 +134,20 @@
 			<groupId>org.jacoco</groupId>
 			<artifactId>jacoco-maven-plugin</artifactId>
 			<version>${jacoco.version}</version>
+			<configuration>
+				<!-- Excluded: OpenAPI + MapStruct generated code, entities, repos, infra -->
+				<excludes>
+					<exclude>com/bestech/bean/**</exclude>
+					<exclude>com/bestech/controller/**</exclude>
+					<exclude>com/bestech/produit/bean/**</exclude>
+					<exclude>com/bestech/produit/model/**</exclude>
+					<exclude>com/bestech/produit/repository/**</exclude>
+					<exclude>**/ProduitApplication*</exclude>
+					<exclude>**/security/RedisTokenBlacklistService*</exclude>
+					<exclude>**/security/SecurityConfig*</exclude>
+					<exclude>**/security/TokenBlacklistService*</exclude>
+				</excludes>
+			</configuration>
 			<executions>
 				<execution>
 					<id>jacoco-prepare-agent</id>
@@ -161,7 +175,7 @@
 									<limit>
 										<counter>INSTRUCTION</counter>
 										<value>COVEREDRATIO</value>
-										<minimum>0.00</minimum>
+										<minimum>0.80</minimum>
 									</limit>
 								</limits>
 							</rule>
