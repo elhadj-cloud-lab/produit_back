@@ -29,7 +29,7 @@ public class ProduitController implements ProduitApi {
     @Override
     public ResponseEntity<Void> deleteProduit(Long id) {
         produitService.deleteProduit(id);
-        return null;
+        return ResponseEntity.noContent().build();
     }
 
     @Override
