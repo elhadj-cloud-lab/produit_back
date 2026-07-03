@@ -40,10 +40,10 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/produit/**").hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers("/api/produit/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/categorie/**").hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers("/api/categorie/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/produit/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/produit/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/categorie/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/categorie/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 

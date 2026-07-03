@@ -4,7 +4,6 @@ import com.bestech.produit.model.Categorie;
 import com.bestech.produit.model.Produit;
 import com.bestech.produit.repository.ImageRepository;
 import com.bestech.produit.repository.ProduitRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +16,11 @@ class ProduitServiceImpl implements ProduitService {
 
     private final ProduitRepository produitRepository;
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
 
-    private ProduitServiceImpl(ProduitRepository produitRepository) {
-
+    private ProduitServiceImpl(ProduitRepository produitRepository, ImageRepository imageRepository) {
         this.produitRepository = produitRepository;
+        this.imageRepository = imageRepository;
     }
 
     @Override
@@ -35,7 +33,8 @@ class ProduitServiceImpl implements ProduitService {
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public Produit getProduitById(Long id) {
 
-        return produitRepository.findById(id).get();
+        return produitRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Le produit avec l'id " + id + " non trouvé."));
     }
 
     @Override
@@ -96,7 +95,7 @@ class ProduitServiceImpl implements ProduitService {
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public List<Produit> findByCategorie(Categorie categorie) {
 
-        return findByCategorie(categorie);
+        return produitRepository.findByCategorie(categorie);
     }
 
     @Override

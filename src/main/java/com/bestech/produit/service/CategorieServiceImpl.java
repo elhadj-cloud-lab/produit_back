@@ -22,7 +22,8 @@ public class CategorieServiceImpl implements CategorieService {
 
     @Override
     public Categorie getCategorieById(Long id) {
-        return categorieRepository.findById(id).get();
+        return categorieRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("La categorie avec l'id " + id + " non trouvée."));
     }
 
     @Override

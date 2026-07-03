@@ -118,11 +118,11 @@ class ProduitControllerIntegrationTest {
     }
 
     @Test
-    void deleteProduit_returns200() throws Exception {
+    void deleteProduit_returns204() throws Exception {
         Produit saved = savedProduit("ToDelete", 50.0);
 
         mockMvc.perform(delete("/api/produit/" + saved.getIdProduit()))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 
     @Test
